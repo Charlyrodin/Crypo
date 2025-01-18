@@ -28,9 +28,14 @@ function increaseScore() {
   score += energyActive ? 2 : 1; // Incrementa más rápido si la energía está activa
   document.getElementById("big-score").textContent = score;
 
+  const walletAddress = document.getElementById("wallet-address").textContent.split(": ")[1];
+  if (walletAddress !== "Not Connected") {
+    localStorage.setItem(walletAddress, score);
+  }
+
   const emoji = document.getElementById("emoji-tap");
   emoji.classList.add("tapped");
-  setTimeout(() => emoji.classList.remove("tapped"), 100); // Menor duración
+  setTimeout(() => emoji.classList.remove("tapped"), 100);
 }
 
 // Clasificación
