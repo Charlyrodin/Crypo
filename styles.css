@@ -1,0 +1,59 @@
+/* General */
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.logout-btn {
+  background: #f00;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Navigation */
+.nav {
+  margin: 20px 0;
+}
+
+.nav-btn {
+  background: #ff0;
+  color: #000;
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Wallet and User Info */
+.wallet, .user-info {
+  margin: 20px 0;
+  background: #222;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Footer */
+.social-links a img {
+  width: 30px;
+  margin: 10px;
+}
