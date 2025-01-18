@@ -136,14 +136,19 @@ function showGame() {
 let score = 0;
 
 function increaseScore() {
+  // Incrementar el puntaje
   score++;
   document.getElementById("big-score").textContent = score;
 
-  // Animar el emoji manualmente
+  // Obtener el elemento del diamante
   const emoji = document.getElementById("emoji-tap");
-  emoji.classList.add("active");
+
+  // Agregar clase para la animación
+  emoji.classList.add("tapped");
+
+  // Remover la clase después de la animación
   setTimeout(() => {
-    emoji.classList.remove("active");
+    emoji.classList.remove("tapped");
   }, 200);
 
   // Guardar puntuación en localStorage

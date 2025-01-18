@@ -82,6 +82,7 @@ body {
   text-shadow: 0px 0px 10px #ffcc00;
 }
 
+/* Estilo del diamante */
 #emoji-tap {
   font-size: 100px;
   cursor: pointer;
@@ -89,12 +90,25 @@ body {
   text-shadow: 0px 0px 20px #00ff00;
 }
 
-#emoji-tap:active {
-  transform: scale(1.2); /* Reduce el tamaño momentáneamente */
+/* Animación del diamante al hacer tap */
+@keyframes tap-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9); /* Se reduce ligeramente */
+  }
+  100% {
+    transform: scale(1); /* Vuelve a su tamaño original */
+  }
+}
+
+#emoji-tap.tapped {
+  animation: tap-animation 0.2s ease-in-out; /* Aplica la animación */
 }
 
 #emoji-tap:hover {
-  transform: scale(1.6);
+  transform: scale(1.2); /* Efecto al pasar el ratón */
   text-shadow: 0px 0px 30px #00ff00;
 }
 
