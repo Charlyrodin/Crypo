@@ -85,7 +85,7 @@ body {
 #emoji-tap {
   font-size: 100px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.1s, box-shadow 0.1s;
   text-shadow: 0px 0px 20px #00ff00;
 }
 
@@ -94,7 +94,7 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(0.9);
+    transform: scale(0.92); /* Se reduce ligeramente */
   }
   100% {
     transform: scale(1);
@@ -102,7 +102,7 @@ body {
 }
 
 #emoji-tap.tapped {
-  animation: tap-animation 0.2s ease-in-out;
+  animation: tap-animation 0.1s ease-in-out;
 }
 
 #emoji-tap:hover {
