@@ -126,8 +126,7 @@ function showGame() {
       <h2>Tap Emerald</h2>
       <div id="game-display">
         <p id="big-score">0</p>
-        <img src="images/moneda.png" alt="Emerald" id="emerald-img">
-        <button class="tap-btn" onclick="increaseScore()">Tap!</button>
+        <div id="emerald-img" onclick="increaseScore()"></div>
       </div>
     </div>
   `;
@@ -143,39 +142,4 @@ function increaseScore() {
   if (walletAddress !== "Not Connected") {
     localStorage.setItem(walletAddress, score);
   }
-}
-
-function renderDownlineTable(matrix) {
-  const tableBody = document.querySelector("#downline-table tbody");
-  tableBody.innerHTML = "";
-  matrix.users.forEach((user, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${user.id}</td>
-      <td>${user.address}</td>
-    `;
-    tableBody.appendChild(row);
-  });
-}
-
-function renderIncomeSummary() {
-  document.querySelector("#referral-income").textContent = "0.008 BNB";
-  document.querySelector("#level-income").textContent = "0.024 BNB";
-  document.querySelector("#community-size").textContent = "23";
-  document.querySelector("#direct-referrals").textContent = "2";
-}
-
-function renderReferralLinks() {
-  document.querySelector("#referral-link-trust").value =
-    "https://r2r.pro/dashboard?ref=1872457";
-  document.querySelector("#referral-link-safepal").value =
-    "https://bnbfactory.cloud/dashboard?ref=1872457";
-}
-
-function copyLink(elementId) {
-  const input = document.getElementById(elementId);
-  input.select();
-  navigator.clipboard.writeText(input.value);
-  alert("Copied the link: " + input.value);
 }
