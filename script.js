@@ -126,7 +126,7 @@ function showGame() {
       <h2>Tap Emerald</h2>
       <div id="game-display">
         <p id="big-score">0</p>
-        <div id="emerald-img" onclick="increaseScore()"></div>
+        <div id="emoji-tap" onclick="increaseScore()">💎</div>
       </div>
     </div>
   `;
