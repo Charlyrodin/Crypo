@@ -1,4 +1,6 @@
 let web3;
+let score = 0;
+let energyActive = false;
 
 // Detectar Web3 (SafePal o cualquier wallet compatible)
 document.getElementById("connect-wallet").addEventListener("click", async () => {
@@ -21,10 +23,7 @@ document.getElementById("connect-wallet").addEventListener("click", async () => 
   }
 });
 
-// Juego Tap Emerald
-let score = 0;
-let energyActive = false;
-
+// Incrementar puntaje
 function increaseScore() {
   score++;
   if (energyActive) score++; // x2 Taps si la energía está activa
@@ -82,4 +81,32 @@ function activateEnergy() {
     energyActive = false;
     alert("Energía finalizada.");
   }, 30000);
+}
+
+// Cargar el juego
+function showGame() {
+  const gameHtml = `
+    <div id="game-container">
+      <h2>Tap Emerald</h2>
+      <div id="game-display">
+        <p id="big-score">${score}</p>
+        <div id="emoji-tap" onclick="increaseScore()">💎</div>
+      </div>
+      <div id="game-actions">
+        <button class="action-btn" onclick="showLeaderboard()">Clasificación</button>
+        <button class="action-btn" onclick="showUpgrades()">Mejoras</button>
+        <button class="action-btn" onclick="activateEnergy()">Energía</button>
+      </div>
+    </div>
+  `;
+  document.getElementById("content").innerHTML = gameHtml;
+}
+
+// Cargar el dashboard inicial
+function showDashboard() {
+  const dashboardHtml = `
+    <h2>Dashboard</h2>
+    <p>Bienvenido al Dashboard.</p>
+  `;
+  document.getElementById("content").innerHTML = dashboardHtml;
 }
