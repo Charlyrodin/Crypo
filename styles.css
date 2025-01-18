@@ -9,7 +9,7 @@ body {
 
 .container {
   width: 90%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   text-align: center;
 }
@@ -30,6 +30,19 @@ body {
   cursor: pointer;
 }
 
+/* Connect Wallet */
+.connect-wallet {
+  margin: 20px 0;
+}
+
+#connect-wallet {
+  background: #00aaff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
 /* Navigation */
 .nav {
   margin: 20px 0;
@@ -44,8 +57,21 @@ body {
   cursor: pointer;
 }
 
-/* Wallet and User Info */
-.wallet, .user-info {
+/* Downline Table */
+#downline-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+#downline-table th, #downline-table td {
+  border: 1px solid #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Income Summary */
+.income-summary, .referral-links {
   margin: 20px 0;
   background: #222;
   padding: 15px;
@@ -53,7 +79,8 @@ body {
 }
 
 /* Footer */
-.social-links a img {
-  width: 30px;
-  margin: 10px;
+.footer {
+  margin-top: 20px;
+  color: #aaa;
+  font-size: 14px;
 }

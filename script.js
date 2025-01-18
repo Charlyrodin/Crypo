@@ -1,41 +1,55 @@
+let web3;
+
+// Detectar Web3 (SafePal o cualquier wallet compatible)
+document.getElementById("connect-wallet").addEventListener("click", async () => {
+  if (typeof window.ethereum !== "undefined") {
+    // Conectar a la wallet
+    web3 = new Web3(window.ethereum);
+    try {
+      // Solicitar conexión a la wallet
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const walletAddress = accounts[0]; // Dirección de la wallet conectada
+      document.getElementById("wallet-address").textContent = `Wallet Address: ${walletAddress}`;
+    } catch (error) {
+      console.error("User denied wallet connection", error);
+    }
+  } else {
+    alert("No Web3 wallet detected. Please install MetaMask or SafePal.");
+  }
+});
+
 // Clase para cada usuario en la matriz
 class User {
   constructor(id, address, referrer = null) {
-    this.id = id; // ID único del usuario
-    this.address = address; // Dirección del usuario (wallet)
-    this.referrer = referrer; // Usuario que lo refirió
-    this.children = []; // Lista de referidos directos
+    this.id = id;
+    this.address = address;
+    this.referrer = referrer;
+    this.children = [];
   }
 
-  // Método para agregar un referido
   addChild(user) {
     if (this.children.length < 2) {
       this.children.push(user);
       return true;
     }
-    return false; // No se puede agregar más de 2 referidos directos
+    return false;
   }
 }
 
-// Clase para manejar la matriz forzada 2x20
+// Clase para manejar la matriz
 class ForcedMatrix {
   constructor() {
-    this.users = []; // Lista de todos los usuarios
-    this.levels = {}; // Niveles de la matriz
+    this.users = [];
+    this.levels = {};
   }
 
-  // Método para agregar un usuario
   addUser(userId, address, referrerId = null) {
     const newUser = new User(userId, address, referrerId);
-
     if (this.users.length === 0) {
-      // Si no hay usuarios, este es el primero (admin o raíz)
       this.users.push(newUser);
-      this.levels[1] = [newUser]; // Primer nivel
+      this.levels[1] = [newUser];
       return newUser;
     }
-
-    // Buscar lugar en la matriz
     for (const user of this.users) {
       if (user.addChild(newUser)) {
         this.users.push(newUser);
@@ -46,7 +60,6 @@ class ForcedMatrix {
     throw new Error("No space available in the matrix");
   }
 
-  // Agregar usuario a un nivel específico
   _addToLevel(user) {
     const level = this.getLevel(user);
     if (!this.levels[level]) {
@@ -55,53 +68,31 @@ class ForcedMatrix {
     this.levels[level].push(user);
   }
 
-  // Obtener el nivel de un usuario
   getLevel(user) {
     let level = 1;
     let current = user.referrer;
     while (current) {
       level++;
-      current = this.users.find(u => u.id === current); // Encontrar al referrer en la lista de usuarios
+      current = this.users.find(u => u.id === current);
     }
     return level;
   }
-
-  // Mostrar la matriz completa en la consola
-  displayMatrix() {
-    console.log("Matrix Levels:");
-    for (const [level, users] of Object.entries(this.levels)) {
-      console.log(`Level ${level}:`, users.map(u => u.id));
-    }
-  }
 }
 
-// Inicialización y lógica del DOM
+// Inicialización
 document.addEventListener("DOMContentLoaded", () => {
   const matrix = new ForcedMatrix();
-
-  // Agregar usuarios de ejemplo
-  matrix.addUser(1, "0xF991f...0E632"); // Usuario raíz (Admin)
-  matrix.addUser(2, "0xf77e1...cbE8E", 1); // Referido por el usuario 1
-  matrix.addUser(3, "0x575C8...26Be8", 1); // Referido por el usuario 1
-  matrix.addUser(4, "0xd0A57...182a4", 2); // Referido por el usuario 2
-  matrix.addUser(5, "0xA698e...FBe0f", 2); // Referido por el usuario 2
-  matrix.addUser(6, "0x15437...D287A", 3); // Referido por el usuario 3
-
-  // Mostrar tabla de downline
+  matrix.addUser(1, "0xF991f...0E632");
+  matrix.addUser(2, "0xf77e1...cbE8E", 1);
+  matrix.addUser(3, "0x575C8...26Be8", 1);
   renderDownlineTable(matrix);
-
-  // Mostrar resumen de ingresos
   renderIncomeSummary();
-
-  // Mostrar enlaces de referidos
   renderReferralLinks();
 });
 
-// Función para mostrar la tabla de referidos (Downline)
 function renderDownlineTable(matrix) {
   const tableBody = document.querySelector("#downline-table tbody");
-  tableBody.innerHTML = ""; // Limpiar contenido previo
-
+  tableBody.innerHTML = "";
   matrix.users.forEach((user, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -113,7 +104,6 @@ function renderDownlineTable(matrix) {
   });
 }
 
-// Función para mostrar el resumen de ingresos
 function renderIncomeSummary() {
   document.querySelector("#referral-income").textContent = "0.008 BNB";
   document.querySelector("#level-income").textContent = "0.024 BNB";
@@ -121,7 +111,6 @@ function renderIncomeSummary() {
   document.querySelector("#direct-referrals").textContent = "2";
 }
 
-// Función para mostrar los enlaces de referidos
 function renderReferralLinks() {
   document.querySelector("#referral-link-trust").value =
     "https://r2r.pro/dashboard?ref=1872457";
@@ -129,11 +118,9 @@ function renderReferralLinks() {
     "https://bnbfactory.cloud/dashboard?ref=1872457";
 }
 
-// Función para copiar enlaces de referidos
 function copyLink(elementId) {
   const input = document.getElementById(elementId);
   input.select();
-  input.setSelectionRange(0, 99999); // Para dispositivos móviles
   navigator.clipboard.writeText(input.value);
   alert("Copied the link: " + input.value);
 }
