@@ -89,8 +89,12 @@ body {
   text-shadow: 0px 0px 20px #00ff00;
 }
 
+#emoji-tap:active {
+  transform: scale(1.2); /* Reduce el tamaño momentáneamente */
+}
+
 #emoji-tap:hover {
-  transform: scale(1.2);
+  transform: scale(1.6);
   text-shadow: 0px 0px 30px #00ff00;
 }
 

@@ -138,6 +138,15 @@ let score = 0;
 function increaseScore() {
   score++;
   document.getElementById("big-score").textContent = score;
+
+  // Animar el emoji manualmente
+  const emoji = document.getElementById("emoji-tap");
+  emoji.classList.add("active");
+  setTimeout(() => {
+    emoji.classList.remove("active");
+  }, 200);
+
+  // Guardar puntuación en localStorage
   const walletAddress = document.getElementById("wallet-address").textContent.split(": ")[1];
   if (walletAddress !== "Not Connected") {
     localStorage.setItem(walletAddress, score);
