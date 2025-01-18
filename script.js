@@ -124,8 +124,11 @@ function showGame() {
   document.getElementById("content").innerHTML = `
     <div id="game-container">
       <h2>Tap Emerald</h2>
-      <button class="tap-btn" onclick="increaseScore()">Tap!</button>
-      <p id="score">Score: 0</p>
+      <div id="game-display">
+        <p id="big-score">0</p>
+        <img src="images/moneda.png" alt="Emerald" id="emerald-img">
+        <button class="tap-btn" onclick="increaseScore()">Tap!</button>
+      </div>
     </div>
   `;
 }
@@ -135,7 +138,7 @@ let score = 0;
 
 function increaseScore() {
   score++;
-  document.getElementById("score").textContent = `Score: ${score}`;
+  document.getElementById("big-score").textContent = score;
   const walletAddress = document.getElementById("wallet-address").textContent.split(": ")[1];
   if (walletAddress !== "Not Connected") {
     localStorage.setItem(walletAddress, score);
