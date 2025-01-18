@@ -23,48 +23,15 @@
 
     <!-- Navigation -->
     <nav class="nav">
-      <button class="nav-btn">Dashboard</button>
-      <button class="nav-btn">Community</button>
-      <button class="nav-btn downline-btn">Downline</button>
+      <button class="nav-btn" onclick="showDashboard()">Dashboard</button>
+      <button class="nav-btn" onclick="showDownline()">Downline</button>
+      <button class="nav-btn" onclick="showGame()">Play Tap Emerald</button>
     </nav>
 
-    <!-- Downline Table -->
-    <section class="downline-section">
-      <h2>Downline</h2>
-      <table id="downline-table">
-        <thead>
-          <tr>
-            <th>SNo.</th>
-            <th>ID</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Downline data will be injected here -->
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Income Summary -->
-    <section class="income-summary">
-      <h2>Income Summary</h2>
-      <p>Referral Income: <span id="referral-income"></span></p>
-      <p>Level Income: <span id="level-income"></span></p>
-      <p>My Community Size: <span id="community-size"></span></p>
-      <p>Direct Referrals: <span id="direct-referrals"></span></p>
-    </section>
-
-    <!-- Referral Links -->
-    <section class="referral-links">
-      <h2>Referral Links</h2>
-      <p>Referral Link - For Trust Wallet:</p>
-      <input id="referral-link-trust" readonly />
-      <button onclick="copyLink('referral-link-trust')">Copy</button>
-
-      <p>Referral Link - For SafePal:</p>
-      <input id="referral-link-safepal" readonly />
-      <button onclick="copyLink('referral-link-safepal')">Copy</button>
-    </section>
+    <!-- Dynamic Content -->
+    <div id="content">
+      <!-- Aquí se cargarán dinámicamente las vistas: Dashboard, Downline o el juego -->
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

@@ -3,13 +3,16 @@ let web3;
 // Detectar Web3 (SafePal o cualquier wallet compatible)
 document.getElementById("connect-wallet").addEventListener("click", async () => {
   if (typeof window.ethereum !== "undefined") {
-    // Conectar a la wallet
     web3 = new Web3(window.ethereum);
     try {
-      // Solicitar conexión a la wallet
       const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-      const walletAddress = accounts[0]; // Dirección de la wallet conectada
+      const walletAddress = accounts[0];
       document.getElementById("wallet-address").textContent = `Wallet Address: ${walletAddress}`;
+
+      // Cargar puntuación del usuario
+      const savedScore = localStorage.getItem(walletAddress) || 0;
+      score = parseInt(savedScore, 10);
+      console.log(`Score loaded for ${walletAddress}: ${score}`);
     } catch (error) {
       console.error("User denied wallet connection", error);
     }
@@ -89,6 +92,55 @@ document.addEventListener("DOMContentLoaded", () => {
   renderIncomeSummary();
   renderReferralLinks();
 });
+
+// Vistas dinámicas
+function showDashboard() {
+  document.getElementById("content").innerHTML = `
+    <h2>Dashboard</h2>
+    <p>Welcome to your dashboard!</p>
+  `;
+}
+
+function showDownline() {
+  document.getElementById("content").innerHTML = `
+    <h2>Downline</h2>
+    <table id="downline-table">
+      <thead>
+        <tr>
+          <th>SNo.</th>
+          <th>ID</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se inyectarán los datos de la tabla -->
+      </tbody>
+    </table>
+  `;
+  renderDownlineTable(matrix);
+}
+
+function showGame() {
+  document.getElementById("content").innerHTML = `
+    <div id="game-container">
+      <h2>Tap Emerald</h2>
+      <button class="tap-btn" onclick="increaseScore()">Tap!</button>
+      <p id="score">Score: 0</p>
+    </div>
+  `;
+}
+
+// Juego Tap Emerald
+let score = 0;
+
+function increaseScore() {
+  score++;
+  document.getElementById("score").textContent = `Score: ${score}`;
+  const walletAddress = document.getElementById("wallet-address").textContent.split(": ")[1];
+  if (walletAddress !== "Not Connected") {
+    localStorage.setItem(walletAddress, score);
+  }
+}
 
 function renderDownlineTable(matrix) {
   const tableBody = document.querySelector("#downline-table tbody");

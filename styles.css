@@ -70,12 +70,38 @@ body {
   text-align: left;
 }
 
-/* Income Summary */
-.income-summary, .referral-links {
-  margin: 20px 0;
+/* Game Container */
+#game-container {
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
   background: #222;
-  padding: 15px;
+  border-radius: 10px;
+}
+
+#game-container h2 {
+  color: #ff0;
+}
+
+.tap-btn {
+  display: inline-block;
+  background: #4caf50;
+  color: white;
+  font-size: 18px;
+  padding: 15px 20px;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.tap-btn:hover {
+  background: #45a049;
+}
+
+#score {
+  font-size: 24px;
+  color: #fff;
+  margin-top: 20px;
 }
 
 /* Footer */
