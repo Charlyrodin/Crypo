@@ -1,45 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emerald Tap Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('Fondo pantalla juego.png');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Bungee', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #game-container {
+            position: relative;
+            width: 360px;
+            height: 640px;
+        }
+        #coin {
+            width: 200px;
+            height: 200px;
+            background-image: url('https://i.postimg.cc/y8PrP7hC/moneda.png');
+            background-size: cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+        #score {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            color: #ffffff;
+            text-shadow: 2px 2px 5px #000;
+        }
+        #energy-bar {
+            position: absolute;
+            top: 72%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        #energy-progress {
+            height: 100%;
+            background-color: #00ff00;
+            width: 0;
+        }
+        #menu {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+        .menu-button {
+            width: 100px;
+            height: 40px;
+            background-color: #00ff00;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Bungee', cursive;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <h1>Ride BNB</h1>
-      <button class="logout-btn">Logout</button>
-    </header>
-
-    <!-- Connect Wallet -->
-    <section class="connect-wallet">
-      <button id="connect-wallet">Connect Wallet</button>
-      <p id="wallet-address">Wallet Address: Not Connected</p>
-    </section>
-
-    <!-- Navigation -->
-    <nav class="nav">
-      <button class="nav-btn" onclick="showDashboard()">Dashboard</button>
-      <button class="nav-btn" onclick="showDownline()">Downline</button>
-      <button class="nav-btn" onclick="showGame()">Play Tap Emerald</button>
-    </nav>
-
-    <!-- Dynamic Content -->
-    <div id="content">
-      <!-- Aquí se cargarán dinámicamente las vistas: Dashboard, Downline o el juego -->
+    <div id="game-container">
+        <div id="score">0</div>
+        <div id="coin"></div>
+        <div id="energy-bar">
+            <div id="energy-progress"></div>
+        </div>
+        <div id="menu">
+            <button class="menu-button" onclick="showTasks()">Tareas</button>
+            <button class="menu-button" onclick="showReferrals()">Referidos</button>
+            <button class="menu-button" onclick="showUpgrades()">Mejoras</button>
+        </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>&copy; 2025 Ride BNB. All Rights Reserved.</p>
-    </footer>
-  </div>
+    <script>
+        let score = parseInt(localStorage.getItem('score')) || 0;
+        let energy = 2400;
+        const maxEnergy = 2400;
+        const energyBar = document.getElementById('energy-progress');
+        const scoreDisplay = document.getElementById('score');
+        const coin = document.getElementById('coin');
 
-  <!-- Include JavaScript -->
-  <script src="script.js"></script>
+        // Actualizar puntaje y barra de energía
+        function updateDisplay() {
+            scoreDisplay.textContent = score;
+            const energyPercentage = (energy / maxEnergy) * 100;
+            energyBar.style.width = `${energyPercentage}%`;
+        }
+
+        coin.addEventListener('click', () => {
+            if (energy > 0) {
+                score++;
+                energy--;
+                updateDisplay();
+            } else {
+                alert('¡Sin energía!');
+            }
+        });
+
+        // Mostrar tareas
+        function showTasks() {
+            alert('Completa tareas diarias para ganar más energía.');
+        }
+
+        // Mostrar referidos
+        function showReferrals() {
+            alert('Comparte tu enlace para ganar energía adicional.');
+        }
+
+        // Mostrar mejoras
+        function showUpgrades() {
+            alert('Compra mejoras para aumentar tus puntos por clic.');
+        }
+
+        updateDisplay();
+    </script>
 </body>
 </html>
